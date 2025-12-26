@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smart Campus Safety</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="auth-container">
+
+    <!-- Logo + Title -->
+    <div class="brand">
+      <img src="assets/icons/logo.png" alt="Smart Campus Safety Logo" />
+      <h1>Smart Campus Safety System</h1>
+      <p class="subtitle">Ensuring Safety. Empowering Campus.</p>
+    </div>
+
+    <h2 id="formTitle">Login</h2>
+
+    <!-- Signup-only -->
+    <input type="text" id="username" placeholder="Full Name" class="signup-only" />
+
+    <input type="email" id="email" placeholder="College Email Address" required />
+    <input type="password" id="password" placeholder="Password" required />
+
+    <!-- Signup-only -->
+    <select id="role" class="signup-only">
+      <option value="" disabled selected>Select Role</option>
+      <option value="student">Student</option>
+      <option value="faculty">Faculty</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <button id="loginBtn">Login</button>
+    <button id="signupBtn" class="signup-only">Create Account</button>
+
+    <p class="toggle-text">
+      <span id="toggleText">Don't have an account?</span>
+      <a href="#" id="toggleLink">Sign Up</a>
+    </p>
+
+  </div>
+
+  <script type="module" src="js/auth.js"></script>
+
+  <script>
+    const toggleLink = document.getElementById("toggleLink");
+    const toggleText = document.getElementById("toggleText");
+    const formTitle = document.getElementById("formTitle");
+    const signupFields = document.querySelectorAll(".signup-only");
+    const loginBtn = document.getElementById("loginBtn");
+
+    let isSignup = false;
+
+    toggleLink.onclick = (e) => {
+      e.preventDefault();
+      isSignup = !isSignup;
+
+      signupFields.forEach(el => el.style.display = isSignup ? "block" : "none");
+      loginBtn.style.display = isSignup ? "none" : "block";
+
+      formTitle.textContent = isSignup ? "Create Account" : "Login";
+      toggleText.textContent = isSignup
+        ? "Already have an account?"
+        : "Don't have an account?";
+      toggleLink.textContent = isSignup ? "Login" : "Sign Up";
+    };
+
+    signupFields.forEach(el => el.style.display = "none");
+  </script>
+<div id="toast" class="toast"></div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SOS Emergency | CampusSafe</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">🛡</span>
+      <span>CampusSafe</span>
+    </div>
+
+    <nav>
+      <a href="homepage.html">Home</a>
+      <a href="dashboard.html">Support</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <!-- SOS CENTERED PAGE -->
+  <div class="sos-page">
+    <div class="sos-card">
+
+      <h2>🚨 Emergency SOS</h2>
+      <p class="subtitle">
+        Press the button below to alert campus security immediately
+      </p>
+
+      <!-- ONE TAP SOS -->
+      <button id="sosBtn">SOS</button>
+
+      <hr />
+
+      <!-- VOICE / TEXT DEMO -->
+      <div class="voice-box">
+        <h3>Voice / Text Emergency (Demo)</h3>
+        <input
+          type="text"
+          id="emergencyInput"
+          placeholder="Type emergency message"
+        />
+        <button id="voiceBtn" class="btn primary">Send</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script type="module" src="js/sos.js"></script>
+
+</body>
+</html>

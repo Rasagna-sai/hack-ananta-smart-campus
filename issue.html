@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Report Issue | Smart Campus Safety</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<header class="navbar">
+  <div class="logo">
+    <span class="logo-icon">🛡</span>
+    <span>CampusSafe</span>
+  </div>
+
+  <nav>
+    <a href="homepage.html">Home</a>
+    <a href="dashboard.html">Support</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</header>
+
+<body>
+
+  <div class="container">
+    <h2>Campus Support</h2>
+    <p class="subtitle">Help us keep the campus safe and functional</p>
+
+    <form class="issue-form">
+      
+      <label for="issueType">Issue Type</label>
+      <select id="issueType">
+        <option value="">Select issue type</option>
+        <option value="Electricity">Electricity</option>
+        <option value="Water">Water</option>
+        <option value="Infrastructure">Infrastructure</option>
+        <option value="Classrooms">Classrooms</option>
+        <option value="Washrooms">Washrooms</option>
+        <option value="Safety">Safety</option>
+        <option value="Cleanliness">Cleanliness</option>
+      </select>
+
+      <label for="reportedBy">Issue Reported By</label>
+      <select id="reportedBy">
+        <option value="">Select role</option>
+        <option value="student">Student</option>
+        <option value="faculty">Faculty</option>
+      </select>
+
+      <label for="description">Issue Description</label>
+      <textarea
+        id="description"
+        placeholder="Describe the issue clearly (location, problem, urgency)...">
+      </textarea>
+
+      <button type="button" id="submitIssue">Submit Issue</button>
+    </form>
+  </div>
+
+  <script type="module" src="js/issue.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Profile | CampusSafe</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<header class="navbar">
+  <div class="logo">
+    <span class="logo-icon">🛡</span>
+    <span>CampusSafe</span>
+  </div>
+
+  <nav>
+    <a href="homepage.html">Home</a>
+    <a href="dashboard.html">Support</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</header>
+
+<body>
+
+  <div class="container">
+    <h2>My Profile</h2>
+    <p class="subtitle">Your account information</p>
+
+    <div class="profile-box">
+      <p><strong>Name:</strong> <span id="name">Loading...</span></p>
+      <p><strong>Email:</strong> <span id="email">Loading...</span></p>
+      <p><strong>Role:</strong> <span id="role">Loading...</span></p>
+    </div>
+
+    <button id="logoutBtn" class="btn primary">Logout</button>
+  </div>
+
+  <!-- IMPORTANT: module script -->
+  <script type="module" src="js/profile.js"></script>
+</body>
+</html>

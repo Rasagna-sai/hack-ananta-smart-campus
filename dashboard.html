@@ -29,6 +29,10 @@
         <h3>Report Issue</h3>
         <p>Notify campus authorities about infrastructure or safety issues</p>
       </a>
+      <a href="#" class="card" id="voiceAssistantCard">
+  <h3>🎤 Voice Emergency Assistant</h3>
+  <p>Raise SOS using voice via AI assistant</p>
+</a>
 
       <a href="sos.html" class="card danger">
         <h3>SOS Emergency</h3>
@@ -36,6 +40,14 @@
       </a>
     </div>
   </div>
+  <script>
+  document.getElementById("voiceAssistantCard").addEventListener("click", () => {
+    window.open(
+      "https://console.dialogflow.com/api-client/demo/embedded/6c6cce23-0d9e-4d0e-8f3d-ae81defd3963",
+      "_blank"
+    );
+  });
+</script>
 
 </body>
 </html>

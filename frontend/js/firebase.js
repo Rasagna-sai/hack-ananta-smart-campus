@@ -23,3 +23,17 @@ const db = getFirestore(app);
 
 // Export for use in other files
 export { auth, db };
+// <!-- firebase-init.js -->
+// <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+// <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+// <script>
+//   const firebaseConfig = {
+//     apiKey: "AIzaSyAaGLkqmTvSE3WGLw7AMinJXwgBPJjfNBA",
+//     authDomain: "smartcampus-b4339.firebaseapp.com",
+//     projectId: "smartcampus-b4339",
+//   };
+
+//   firebase.initializeApp(firebaseConfig);
+//   const db = firebase.firestore();
+// </script>

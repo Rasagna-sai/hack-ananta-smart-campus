@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard | CampusSafe</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="logo">
+    <span class="logo-icon">🛡</span>
+    <span>CampusSafe Admin</span>
+  </div>
+</header>
+
+<div class="container admin-container">
+  <h2>Admin Dashboard</h2>
+  <p class="subtitle">Manage reported campus issues</p>
+
+  <!-- ISSUES SECTION -->
+  <div class="section">
+    <h3>🛠 Reported Issues</h3>
+    <div id="issueList" class="list-box"></div>
+  </div>
+</div>
+
+
+<script src="js/firebase-init.js"></script>
+<script src="js/admin_dashboard.js"></script>
+<script type="module" src="./js/admin_dashboard.js"></script>
+
+
+
+</body>
+</html>

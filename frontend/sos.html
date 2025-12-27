@@ -22,76 +22,41 @@
     </nav>
   </header>
 
-  <!-- SOS CENTERED PAGE -->
-  <div class="sos-page">
-    <div class="sos-card">
+  <!-- GLOBAL OVERLAY -->
+  <div class="page-overlay">
 
-      <h2>🚨 Emergency SOS</h2>
-      <p class="subtitle">
-        Press the button below to alert campus security immediately
-      </p>
+    <!-- SOS CENTERED PAGE -->
+    <div class="sos-page">
+      <div class="sos-card">
 
-      <!-- ONE TAP SOS -->
-      <button id="sosBtn">SOS</button>
+        <h2>🚨 Emergency SOS</h2>
+        <p class="subtitle">
+          Press the button below to alert campus security immediately
+        </p>
 
-      <hr />
+        <!-- ONE TAP SOS -->
+        <button id="sosBtn" class="sos-btn">SOS</button>
 
-      <!-- VOICE / TEXT DEMO -->
-      <div class="voice-box">
-        <h3>Voice / Text Emergency (Demo)</h3>
+        <hr />
 
-        <div class="voice-demo">
+        <!-- VOICE / TEXT DEMO -->
+        <div class="voice-box">
+          <h3>Voice / Text Emergency (Demo)</h3>
           <input
             type="text"
             id="emergencyInput"
             placeholder="Type emergency message"
           />
-
-          <!-- MIC BUTTON -->
-          <button id="micBtn" class="mic-btn" title="Speak emergency">
-            🎤
-          </button>
-
-          <!-- SEND BUTTON -->
-          <button id="sendBtn" class="btn primary">Send</button>
+          <button id="voiceBtn" class="btn primary">Send</button>
         </div>
-      </div>
 
+      </div>
     </div>
+
   </div>
 
   <!-- JS -->
-  <script type="module">
-    import { triggerSOS } from "./js/utils.js";
-
-    // One-tap SOS button
-    document.getElementById("sosBtn").addEventListener("click", () => {
-      triggerSOS();
-    });
-
-    // Text-based emergency detection (demo)
-    document.getElementById("sendBtn").addEventListener("click", () => {
-      const text = document.getElementById("emergencyInput").value.toLowerCase();
-
-      const keywords = ["help", "sos", "emergency", "danger", "unsafe"];
-
-      const isEmergency = keywords.some(word => text.includes(word));
-
-      if (isEmergency) {
-        triggerSOS();
-      } else {
-        alert("No emergency detected");
-      }
-    });
-
-    // Mic button → Dialogflow Voice Assistant
-    document.getElementById("micBtn").addEventListener("click", () => {
-      window.open(
-        "https://console.dialogflow.com/api-client/demo/embedded/6c6cce23-0d9e-4d0e-8f3d-ae81defd3963",
-        "_blank"
-      );
-    });
-  </script>
+  <script type="module" src="js/sos.js"></script>
 
 </body>
 </html>

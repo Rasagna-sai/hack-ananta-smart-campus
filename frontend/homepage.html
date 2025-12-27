@@ -16,11 +16,25 @@
       <span>CampusSafe</span>
     </div>
 
-    <nav>
-      <a href="homepage.html">Home</a>
-      <a href="dashboard.html">Support</a>
-      <a href="profile.html">Profile</a>
-    </nav>
+    <nav class="nav-right">
+  <a href="homepage.html">Home</a>
+  <a href="dashboard.html">Support</a>
+  <a href="profile.html">Profile</a>
+
+  <!-- 🔔 NOTIFICATION BELL -->
+  <div class="notification-wrapper">
+    <button id="notificationBtn" class="notification-btn">
+      🔔
+      <span id="notificationCount" class="notification-count hidden">0</span>
+    </button>
+
+    <div id="notificationDropdown" class="notification-dropdown hidden">
+      <p class="notif-title">Notifications</p>
+      <div id="notificationList"></div>
+    </div>
+  </div>
+</nav>
+
   </header>
 
   <!-- HERO SECTION -->
@@ -90,6 +104,7 @@
 
   <!-- JS -->
   <script src="js/homepage.js"></script>
+<script type="module" src="js/notifications.js"></script>
 
 </body>
 </html>

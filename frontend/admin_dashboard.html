@@ -8,87 +8,68 @@
 
 <body>
 
-<header class="navbar">
-  <div class="logo">
-    <span class="logo-icon">🛡</span>
-    <span>CampusSafe</span>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">🛡</span>
+      <span>CampusSafe</span>
+    </div>
+
+    <nav class="nav-right">
+      <a href="homepage.html">Home</a>
+      <a href="admin_dashboard.html">Admin</a>
+      <a href="profile.html">Profile</a>
+
+      <!-- 🔔 Notification Bell -->
+      <div class="notification-wrapper">
+        <button id="notificationBtn" class="notification-btn">
+          🔔
+          <span id="notificationCount" class="notification-count hidden">0</span>
+        </button>
+
+        <div id="notificationDropdown" class="notification-dropdown hidden">
+          <p class="notif-title">Notifications</p>
+          <div id="notificationList"></div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-overlay">
+    <div class="admin-wrapper">
+
+      <h1 class="admin-title">Admin Dashboard</h1>
+      <p class="admin-subtitle">Manage campus issues and SOS alerts</p>
+
+      <!-- ISSUES SECTION -->
+      <section class="admin-section">
+        <h2>🛠 Reported Issues</h2>
+
+        <!-- 🔴 Firestore-driven issues will load here -->
+        <div id="issueList"></div>
+      </section>
+
+      <!-- SOS SECTION -->
+      <section class="admin-section">
+        <h2>🚨 Active SOS Alerts</h2>
+
+        <!-- (You can later convert this to Firestore too) -->
+        <div class="sos-alert-card">
+          <div class="sos-info">
+            <p><strong>User:</strong> Student3</p>
+            <p><strong>Location:</strong> Near Hostel Block A</p>
+          </div>
+          <button class="resolve-sos-btn">Mark Resolved</button>
+        </div>
+      </section>
+
+    </div>
   </div>
-  <nav>
-    <a href="homepage.html">Home</a>
-    <a href="admin.html">Admin</a>
-    <a href="profile.html">Profile</a>
-  </nav>
-</header>
 
-<div class="page-overlay">
-
-  <div class="admin-wrapper">
-
-    <h1 class="admin-title">Admin Dashboard</h1>
-    <p class="admin-subtitle">Manage campus issues and SOS alerts</p>
-
-    <!-- ISSUES SECTION -->
-    <section class="admin-section">
-      <h2>🛠 Reported Issues</h2>
-      <div id="issueList"></div>
-
-      <div class="issue-card">
-        <div class="issue-header">
-          <span>User2 (Student)</span>
-          <span class="status-tag pending">Pending</span>
-        </div>
-
-        <p><strong>Issue:</strong> Water</p>
-        <p><strong>Description:</strong> Unavailability of water in ground floor</p>
-
-        <div class="issue-actions">
-          <select>
-            <option>Pending</option>
-            <option>In Progress</option>
-            <option>Resolved</option>
-          </select>
-          <button class="update-btn">Update</button>
-        </div>
-      </div>
-
-      <div class="issue-card">
-        <div class="issue-header">
-          <span>Faculty1 (Faculty)</span>
-          <span class="status-tag progress">In Progress</span>
-        </div>
-
-        <p><strong>Issue:</strong> Electricity</p>
-        <p><strong>Description:</strong> Power outage in Block C</p>
-
-        <div class="issue-actions">
-          <select>
-            <option>Pending</option>
-            <option selected>In Progress</option>
-            <option>Resolved</option>
-          </select>
-          <button class="update-btn">Update</button>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- SOS SECTION -->
-    <section class="admin-section">
-      <h2>🚨 Active SOS Alerts</h2>
-
-      <div class="sos-alert-card">
-        <div class="sos-info">
-          <p><strong>User:</strong> Student3</p>
-          <p><strong>Location:</strong> Near Hostel Block A</p>
-        </div>
-        <button class="resolve-sos-btn">Mark Resolved</button>
-      </div>
-
-    </section>
-
-  </div>
-</div>
-<script type="module" src="./js/admin_issues.js"></script>
+  <!-- JS -->
+  <script type="module" src="./js/admin_issues.js"></script>
+  <script type="module" src="js/notifications.js"></script>
 
 </body>
 </html>

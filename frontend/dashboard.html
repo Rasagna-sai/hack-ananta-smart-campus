@@ -5,49 +5,73 @@
   <title>Dashboard | Smart Campus Safety</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<header class="navbar">
-  <div class="logo">
-    <span class="logo-icon">🛡</span>
-    <span>CampusSafe</span>
-  </div>
-
-  <nav>
-    <a href="homepage.html">Home</a>
-    <a href="dashboard.html">Support</a>
-    <a href="profile.html">Profile</a>
-  </nav>
-</header>
 
 <body>
 
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">🛡</span>
+      <span>CampusSafe</span>
+    </div>
+
+    <nav class="nav-right">
+      <a href="homepage.html">Home</a>
+      <a href="dashboard.html">Support</a>
+      <a href="profile.html">Profile</a>
+
+      <!-- 🔔 Notification Bell -->
+      <div class="notification-wrapper">
+        <button id="notificationBtn" class="notification-btn">
+          🔔
+          <span id="notificationCount" class="notification-count hidden">0</span>
+        </button>
+
+        <div id="notificationDropdown" class="notification-dropdown hidden">
+          <p class="notif-title">Notifications</p>
+          <div id="notificationList"></div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
   <div class="container">
     <h2>Campus Dashboard</h2>
     <p class="subtitle">Choose an action to continue</p>
 
     <div class="dashboard-actions">
+
       <a href="issue.html" class="card">
         <h3>Report Issue</h3>
         <p>Notify campus authorities about infrastructure or safety issues</p>
       </a>
+
       <a href="#" class="card" id="voiceAssistantCard">
-  <h3>🎤 Voice Emergency Assistant</h3>
-  <p>Raise SOS using voice via AI assistant</p>
-</a> 
+        <h3>🎤 Voice Emergency Assistant</h3>
+        <p>Raise SOS using voice via AI assistant</p>
+      </a>
 
       <a href="sos.html" class="card danger">
         <h3>SOS Emergency</h3>
         <p>One-tap emergency alert with location sharing</p>
       </a>
+
     </div>
   </div>
+
+  <!-- VOICE ASSISTANT SCRIPT -->
   <script>
-  document.getElementById("voiceAssistantCard").addEventListener("click", () => {
-    window.open(
-      "https://console.dialogflow.com/api-client/demo/embedded/6c6cce23-0d9e-4d0e-8f3d-ae81defd3963",
-      "_blank"
-    );
-  });
-</script>
+    document.getElementById("voiceAssistantCard").addEventListener("click", () => {
+      window.open(
+        "https://console.dialogflow.com/api-client/demo/embedded/6c6cce23-0d9e-4d0e-8f3d-ae81defd3963",
+        "_blank"
+      );
+    });
+  </script>
+
+  <!-- 🔔 NOTIFICATIONS LOGIC -->
+  <script type="module" src="js/notifications.js"></script>
 
 </body>
 </html>

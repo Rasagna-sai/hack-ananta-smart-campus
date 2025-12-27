@@ -3,7 +3,9 @@ import {
   collection,
   getDocs,
   doc,
-  updateDoc
+  updateDoc,
+  addDoc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,15 +30,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     snapshot.forEach(docSnap => {
       const issue = docSnap.data();
+
+      // 🚫 skip broken / old data
       if (
-    !issue.issueType ||
-    !issue.description ||
-    !issue.status ||
-    !issue.reportedByRole ||
-    !issue.userId
-  ) {
-    return;
-  }
+        !issue.issueType ||
+        !issue.description ||
+        !issue.status ||
+        !issue.reportedByRole ||
+        !issue.userId
+      ) {
+        return;
+      }
+
       const issueId = docSnap.id;
 
       const card = document.createElement("div");
@@ -70,15 +75,27 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
           const newStatus = select.value;
 
+          // 1️⃣ UPDATE ISSUE
           await updateDoc(doc(db, "Issues", issueId), {
             status: newStatus,
-            statusUpdatedAt: new Date()
+            statusUpdatedAt: serverTimestamp(),
+            lastUpdatedBy: "admin"
           });
 
-          // ✅ USER FEEDBACK
-          alert(`✅ Issue status updated to "${newStatus}"`);
+          // 2️⃣ CREATE NOTIFICATION FOR USER
+          await addDoc(collection(db, "notifications"), {
+            toUserId: issue.userId,
+            toRole: issue.reportedByRole,
+            type: "ISSUE_STATUS_UPDATE",
+            issueId: issueId,
+            message: `Your issue "${issue.issueType}" is now ${newStatus}`,
+            read: false,
+            createdAt: serverTimestamp()
+          });
 
-          // ✅ LIVE UI UPDATE
+          // 3️⃣ UI FEEDBACK
+          alert(`✅ Status updated to "${newStatus}"`);
+
           badge.textContent = newStatus;
           badge.style.background = getStatusColor(newStatus);
 

@@ -25,7 +25,8 @@ submitBtn.addEventListener("click", async () => {
   }
 
   try {
-    await addDoc(collection(db, "Issues"), {
+    // 1️⃣ CREATE ISSUE
+    const issueRef = await addDoc(collection(db, "Issues"), {
       issueType,
       description,
       reportedByRole,
@@ -37,7 +38,18 @@ submitBtn.addEventListener("click", async () => {
       statusUpdatedAt: null
     });
 
-    alert("Issue reported successfully");
+    // 2️⃣ CREATE NOTIFICATION FOR ADMIN
+    await addDoc(collection(db, "notifications"), {
+      toRole: "admin",
+      toUserId: "ADMIN", // we’ll resolve admin UID later
+      type: "NEW_ISSUE",
+      issueId: issueRef.id,
+      message: `New ${issueType} issue reported by ${reportedByRole}`,
+      read: false,
+      createdAt: serverTimestamp()
+    });
+
+    alert("✅ Issue reported successfully");
 
     document.getElementById("issueType").value = "";
     document.getElementById("description").value = "";

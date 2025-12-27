@@ -483,3 +483,26 @@ h2 {
 .resolve-sos-btn:hover {
   background: #a93226;
 }
+/* SOS Trigger Button - Homepage */
+#triggerSosBtn {
+  background-color: #d32f2f;     /* strong emergency red */
+  color: #ffffff;
+  font-size: 20px;               /* bigger text */
+  font-weight: 700;
+  padding: 18px 36px;            /* makes button large */
+  border: none;                  /* remove black border */
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#triggerSosBtn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 22px rgba(211, 47, 47, 0.55);
+}
+
+#triggerSosBtn:active {
+  transform: scale(0.95);
+}

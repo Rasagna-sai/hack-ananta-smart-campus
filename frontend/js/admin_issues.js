@@ -1,6 +1,3 @@
-alert("🔥 admin_issues.js LOADED");
-alert("✅ admin_issues.js connected successfully");
-
 import { db } from "./firebase.js";
 import {
   collection,

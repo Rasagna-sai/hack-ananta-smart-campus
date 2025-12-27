@@ -1,24 +1,57 @@
 import { db } from "./firebase.js";
 import {
   collection,
-  onSnapshot
+  onSnapshot,
+  doc,
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const issueList = document.getElementById("issueList");
 
-onSnapshot(collection(db, "Issues"), (snapshot) => {
+// Listen to issues in real-time
+onSnapshot(collection(db, "issues"), (snapshot) => {
   issueList.innerHTML = "";
 
-  snapshot.forEach(doc => {
-    const data = doc.data();
+  if (snapshot.empty) {
+    issueList.innerHTML = "<p>No issues reported.</p>";
+    return;
+  }
 
-    issueList.innerHTML += `
-      <div class="list-item">
-        <p><strong>Type:</strong> ${data.issueType}</p>
-        <p><strong>Description:</strong> ${data.description}</p>
-        <p><strong>Reported By:</strong> ${data.reportedByRole}</p>
-        <p><strong>Status:</strong> ${data.status}</p>
-      </div>
+  snapshot.forEach((docSnap) => {
+    const issue = docSnap.data();
+    const issueId = docSnap.id;
+
+    const issueDiv = document.createElement("div");
+    issueDiv.classList.add("issue-item");
+
+    issueDiv.innerHTML = `
+      <p><strong>Type:</strong> ${issue.issueType}</p>
+      <p><strong>Description:</strong> ${issue.description}</p>
+      <p><strong>Status:</strong>
+        <select data-id="${issueId}">
+          <option value="Pending" ${issue.status === "Pending" ? "selected" : ""}>Pending</option>
+          <option value="In Progress" ${issue.status === "In Progress" ? "selected" : ""}>In Progress</option>
+          <option value="Resolved" ${issue.status === "Resolved" ? "selected" : ""}>Resolved</option>
+        </select>
+      </p>
+      <hr/>
     `;
+
+    issueList.appendChild(issueDiv);
   });
-});
+
+  // Add change listeners to all dropdowns
+  document.querySelectorAll("select").forEach((dropdown) => {
+    dropdown.addEventListener("change", async (e) => {
+      const issueId = e.target.getAttribute("data-id");
+      const newStatus = e.target.value;
+
+      await updateDoc(doc(db, "issues", issueId), {
+        status: newStatus,
+        statusUpdatedAt: new Date()
+      });
+
+      alert("Issue status updated");
+    });
+  });
+})

@@ -39,19 +39,59 @@
       <!-- VOICE / TEXT DEMO -->
       <div class="voice-box">
         <h3>Voice / Text Emergency (Demo)</h3>
-        <input
-          type="text"
-          id="emergencyInput"
-          placeholder="Type emergency message"
-        />
-        <button id="voiceBtn" class="btn primary">Send</button>
+
+        <div class="voice-demo">
+          <input
+            type="text"
+            id="emergencyInput"
+            placeholder="Type emergency message"
+          />
+
+          <!-- MIC BUTTON -->
+          <button id="micBtn" class="mic-btn" title="Speak emergency">
+            🎤
+          </button>
+
+          <!-- SEND BUTTON -->
+          <button id="sendBtn" class="btn primary">Send</button>
+        </div>
       </div>
 
     </div>
   </div>
 
   <!-- JS -->
-  <script type="module" src="js/sos.js"></script>
+  <script type="module">
+    import { triggerSOS } from "./js/utils.js";
+
+    // One-tap SOS button
+    document.getElementById("sosBtn").addEventListener("click", () => {
+      triggerSOS();
+    });
+
+    // Text-based emergency detection (demo)
+    document.getElementById("sendBtn").addEventListener("click", () => {
+      const text = document.getElementById("emergencyInput").value.toLowerCase();
+
+      const keywords = ["help", "sos", "emergency", "danger", "unsafe"];
+
+      const isEmergency = keywords.some(word => text.includes(word));
+
+      if (isEmergency) {
+        triggerSOS();
+      } else {
+        alert("No emergency detected");
+      }
+    });
+
+    // Mic button → Dialogflow Voice Assistant
+    document.getElementById("micBtn").addEventListener("click", () => {
+      window.open(
+        "https://console.dialogflow.com/api-client/demo/embedded/6c6cce23-0d9e-4d0e-8f3d-ae81defd3963",
+        "_blank"
+      );
+    });
+  </script>
 
 </body>
 </html>

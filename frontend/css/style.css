@@ -506,3 +506,9 @@ h2 {
 #triggerSosBtn:active {
   transform: scale(0.95);
 }
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: white;
+  font-size: 0.8rem;
+}

@@ -1,59 +1,99 @@
-console.log("admin-issues.js loaded");
+alert("🔥 admin_issues.js LOADED");
+alert("✅ admin_issues.js connected successfully");
 
 import { db } from "./firebase.js";
 import {
   collection,
-  onSnapshot,
+  getDocs,
   doc,
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const issueList = document.getElementById("issueList");
+document.addEventListener("DOMContentLoaded", () => {
+  const issueList = document.getElementById("issueList");
 
-// Listen to issues in real-time
-onSnapshot(collection(db, "issues"), (snapshot) => {
-  issueList.innerHTML = "";
-
-  if (snapshot.empty) {
-    issueList.innerHTML = "<p>No issues reported.</p>";
+  if (!issueList) {
+    alert("❌ issueList element not found");
     return;
   }
 
-  snapshot.forEach((docSnap) => {
-    const issue = docSnap.data();
-    const issueId = docSnap.id;
+  function getStatusColor(status) {
+    if (status === "Pending") return "#ffb703";
+    if (status === "In Progress") return "#219ebc";
+    if (status === "Resolved") return "#2a9d8f";
+    return "#ccc";
+  }
 
-    const issueDiv = document.createElement("div");
-    issueDiv.classList.add("issue-item");
+  async function loadIssues() {
+    issueList.innerHTML = "";
 
-    issueDiv.innerHTML = `
-      <p><strong>Type:</strong> ${issue.issueType}</p>
-      <p><strong>Description:</strong> ${issue.description}</p>
-      <p><strong>Status:</strong>
-        <select data-id="${issueId}">
-          <option value="Pending" ${issue.status === "Pending" ? "selected" : ""}>Pending</option>
-          <option value="In Progress" ${issue.status === "In Progress" ? "selected" : ""}>In Progress</option>
-          <option value="Resolved" ${issue.status === "Resolved" ? "selected" : ""}>Resolved</option>
+    const snapshot = await getDocs(collection(db, "Issues"));
+
+    snapshot.forEach(docSnap => {
+      const issue = docSnap.data();
+      if (
+    !issue.issueType ||
+    !issue.description ||
+    !issue.status ||
+    !issue.reportedByRole ||
+    !issue.userId
+  ) {
+    return;
+  }
+      const issueId = docSnap.id;
+
+      const card = document.createElement("div");
+      card.className = "issue-card";
+
+      card.innerHTML = `
+        <div class="issue-header">
+          <strong>${issue.userId} (${issue.reportedByRole})</strong>
+          <span class="status-badge" style="background:${getStatusColor(issue.status)}">
+            ${issue.status}
+          </span>
+        </div>
+
+        <p><b>Issue:</b> ${issue.issueType}</p>
+        <p><b>Description:</b> ${issue.description}</p>
+
+        <select class="status-select">
+          <option ${issue.status === "Pending" ? "selected" : ""}>Pending</option>
+          <option ${issue.status === "In Progress" ? "selected" : ""}>In Progress</option>
+          <option ${issue.status === "Resolved" ? "selected" : ""}>Resolved</option>
         </select>
-      </p>
-      <hr/>
-    `;
 
-    issueList.appendChild(issueDiv);
-  });
+        <button class="update-btn">Update</button>
+      `;
 
-  // Add change listeners to all dropdowns
-  document.querySelectorAll("select").forEach((dropdown) => {
-    dropdown.addEventListener("change", async (e) => {
-      const issueId = e.target.getAttribute("data-id");
-      const newStatus = e.target.value;
+      const select = card.querySelector(".status-select");
+      const updateBtn = card.querySelector(".update-btn");
+      const badge = card.querySelector(".status-badge");
 
-      await updateDoc(doc(db, "issues", issueId), {
-        status: newStatus,
-        statusUpdatedAt: new Date()
+      updateBtn.addEventListener("click", async () => {
+        try {
+          const newStatus = select.value;
+
+          await updateDoc(doc(db, "Issues", issueId), {
+            status: newStatus,
+            statusUpdatedAt: new Date()
+          });
+
+          // ✅ USER FEEDBACK
+          alert(`✅ Issue status updated to "${newStatus}"`);
+
+          // ✅ LIVE UI UPDATE
+          badge.textContent = newStatus;
+          badge.style.background = getStatusColor(newStatus);
+
+        } catch (err) {
+          alert("❌ Update failed");
+          console.error(err);
+        }
       });
 
-      alert("Issue status updated");
+      issueList.appendChild(card);
     });
-  });
+  }
+
+  loadIssues();
 });

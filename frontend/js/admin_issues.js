@@ -5,7 +5,8 @@ import {
   doc,
   updateDoc,
   addDoc,
-  serverTimestamp
+  serverTimestamp,
+  arrayUnion
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -77,10 +78,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // 1️⃣ UPDATE ISSUE
           await updateDoc(doc(db, "Issues", issueId), {
-            status: newStatus,
-            statusUpdatedAt: serverTimestamp(),
-            lastUpdatedBy: "admin"
-          });
+  status: newStatus,
+  statusUpdatedAt: serverTimestamp(),
+  lastUpdatedBy: "admin",
+  statusHistory: arrayUnion({
+    status: newStatus,
+    updatedAt: serverTimestamp(),
+    updatedBy: "admin"
+  })
+});
+
 
           // 2️⃣ CREATE NOTIFICATION FOR USER
           await addDoc(collection(db, "notifications"), {
